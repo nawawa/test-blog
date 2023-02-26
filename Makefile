@@ -8,4 +8,4 @@ down:
 	docker compose down
 
 dev:
-	docker compose exec app bash -c 'cd test-blog && npm run dev'
+	docker compose exec app bash -c 'npm run dev'
