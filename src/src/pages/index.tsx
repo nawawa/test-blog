@@ -20,7 +20,6 @@ const Home: NextPage<InferGetStaticPropsType<typeof getStaticProps>> = ({ blogs 
 export const getStaticProps: GetStaticProps<{ blogs: Blog[] }> = async () => {
   const data = await client.get({ endpoint: "blogs" });
   const blogs: Blog[] = data.contents
-  const hello: {name: string} = await fetch(`${process.env.SERVER_ORIGIN}/api/hello`).then(res => res.json())
 
   return {
     props: {
