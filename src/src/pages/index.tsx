@@ -3,7 +3,7 @@ import { Blog } from "../../types/blog"
 
 import { NextPage, GetStaticProps, InferGetStaticPropsType } from "next"
 
-const Home: NextPage<InferGetStaticPropsType<typeof getStaticProps>> = ({ blogs, hello }) => {
+const Home: NextPage<InferGetStaticPropsType<typeof getStaticProps>> = ({ blogs }) => {
   return (
     <div className="flex justify-center items-center min-h-screen">
       <ul>
@@ -13,12 +13,11 @@ const Home: NextPage<InferGetStaticPropsType<typeof getStaticProps>> = ({ blogs,
           </li>
         ))}
       </ul>
-      { hello.name }
     </div>
   );
 }
 
-export const getStaticProps: GetStaticProps<{ blogs: Blog[], hello: { name: string } }> = async () => {
+export const getStaticProps: GetStaticProps<{ blogs: Blog[] }> = async () => {
   const data = await client.get({ endpoint: "blogs" });
   const blogs: Blog[] = data.contents
   const hello: {name: string} = await fetch(`${process.env.SERVER_ORIGIN}/api/hello`).then(res => res.json())
@@ -26,7 +25,6 @@ export const getStaticProps: GetStaticProps<{ blogs: Blog[], hello: { name: stri
   return {
     props: {
       blogs,
-      hello
     },
   };
 };
